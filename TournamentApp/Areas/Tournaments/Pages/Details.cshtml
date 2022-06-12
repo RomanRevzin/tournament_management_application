@@ -1,0 +1,146 @@
+﻿@page
+@model TournamentApp.Areas.Tournaments.Pages.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+    var counter = 1;
+}
+
+
+
+<div class="m-3">
+    <h1>Details</h1>
+    <h4>Tournament</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TournamentDetials.TournamentName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TournamentDetials.TournamentName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TournamentDetials.StartDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TournamentDetials.StartDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TournamentDetials.EndDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TournamentDetials.EndDate)
+        </dd>
+    </dl>
+ </div>   
+
+
+ <div class="col-md-3 m-3">
+    <h4>Participant List</h4>
+    <hr />
+    <table class="table">
+        <thead>
+                <tr>
+                <th>
+                    @Html.DisplayNameFor(model=>model.TournamentDetials.Participants[0].UserName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model=>model.TournamentDetials.Participants[0].Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model=>model.TournamentDetials.Participants[0].TeamName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model=>model.TournamentDetials.Participants[0].PariticpantRole)
+                </th>
+            </tr>
+        
+        </thead>
+        <tbody>
+        @foreach (var item in Model.TournamentDetials.Participants) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                 <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TeamName)
+                </td>
+                <td>
+                            @if (item.PariticpantRole == Role.admin) {
+                                <text>Admin</text>
+                            }else{ <text>Participant</text>}
+                               
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+ </div>  
+ 
+ @*Code added to tour.table*@
+
+        
+ <div class="col-md-4 m-3">
+    <h4>Tournament Table</h4>
+    <table class="table">
+        <thead>
+                <tr>
+                <th>
+                    @Html.DisplayName("Position")
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model=>model.TournamentTable[0].TeamName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model=>model.TournamentTable[0].Games)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model=>model.TournamentTable[0].Wins)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model=>model.TournamentTable[0].Loses)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model=>model.TournamentTable[0].Points)
+                </th>
+            </tr>
+        
+        </thead>
+        <tbody>
+    @foreach (var item in Model.TournamentTable) {
+                <tr>
+                <td>
+                    @Html.DisplayName(counter.ToString())
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TeamName)
+                </td>
+                 <td>
+                    @Html.DisplayFor(modelItem => item.Games)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Wins)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Loses)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Points)
+                </td>
+            </tr>
+            counter++;
+            }
+        </tbody>
+    </table>
+ </div>  
+
+
+<div class="m-3">
+    <a asp-page="/Index" class="btn btn-secondary">Back to List</a>
+</div>  
+    
+
+

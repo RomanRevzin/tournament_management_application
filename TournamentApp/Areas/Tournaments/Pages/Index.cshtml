@@ -1,0 +1,94 @@
+﻿@page
+@model TournamentApp.Areas.Tournaments.Pages.IndexModel
+
+@{
+    ViewData["Title"] = "Tournaments";
+}
+<div id="modal-placeholder"></div>
+<div class="m-3">
+    <h1>Index</h1>
+
+    <p>
+        <a asp-page="Create" class="btn btn-primary"><i class="bi bi-plus-square-fill"></i>&nbspCreate New</a>
+    </p>
+    
+   @* <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-url="@Url.Page("Index", "CreateModalPartial")"><i class="bi bi-plus-square-fill"></i>&nbspCreate</button>*@
+
+    <h1>Managed Tournaments</h1>
+    <table class="table">
+        <thead>
+                <tr>
+                <th>
+                    @Html.DisplayNameFor(model=>model.AdminTournaments[0].TournamentName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model=>model.AdminTournaments[0].StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model=>model.AdminTournaments[0].EndDate)
+                </th>
+                <th></th>
+            </tr>
+        
+        </thead>
+        <tbody>
+    @foreach (var item in Model.AdminTournaments) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TournamentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    <a asp-page="./Manage_Tournaments/Index" asp-route-trId="@item.TournamentId" class="btn btn-secondary"><i class="bi bi-pencil-fill"></i>&nbspManage</a> 
+                    <a asp-page="./Details" asp-route-trId="@item.TournamentId" class="btn btn-secondary"><i class="bi bi-bar-chart-line-fill"></i>&nbspDetails</a> 
+                    <a asp-page="./Delete" asp-route-trId="@item.TournamentId" class="btn btn-danger"><i class="bi bi-trash3-fill"></i>&nbspDelete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+
+    <h1>Participant Tournaments</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ParticipantTournaments[0].TournamentName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ParticipantTournaments[0].StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ParticipantTournaments[0].EndDate)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model.ParticipantTournaments) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TournamentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    <a asp-page="./Details" asp-route-trId="@item.TournamentId" class="btn btn-secondary"><i class="bi bi-bar-chart-line-fill"></i>&nbspDetails</a> 
+                </td>
+                <td>
+                    <form method="post"><input type="submit" value="Quit" asp-page-handler="Quit" asp-route-trId="@item.TournamentId" class="btn btn-danger"></form> 
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+</div>

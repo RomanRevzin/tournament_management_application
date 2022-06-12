@@ -1,0 +1,62 @@
+﻿@using TournamentApp.Dtos
+@*// Tournaments/_CreateTournament.cshtml*@
+@model CreateViewModel
+
+
+<div class="modal fade" id="add-contact" tabindex="-1" role="dialog" aria-labelledby="addContactLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCreateLabel">Create Tournament</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-page-handler="CreateModalPartial">
+                    <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+                    <div class="form-group">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Tournament.TournamentName" class="control-label"></label>
+                            <input asp-for="Tournament.TournamentName" class="form-control" />
+                            <span asp-validation-for="Tournament.TournamentName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Tournament.StartDate" class="control-label"></label>
+                            <input asp-for="Tournament.StartDate" class="form-control" value=@DateTime.UtcNow />
+                            <span asp-validation-for="Tournament.StartDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Tournament.EndDate" class="control-label "></label>
+                            <input asp-for="Tournament.EndDate"  class="form-control" />
+                            <span asp-validation-for="Tournament.EndDate" class="text-danger"></span>
+                        </div>
+                            <div class="form-group">
+                            <label asp-for="Tournament.TeamSize" class="control-label"></label>
+                            <input asp-for="Tournament.TeamSize"  class="form-control" />
+                            <span asp-validation-for="Tournament.TeamSize" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => Model.Tournament.TypeId, htmlAttributes: new { @class = "control-label col-md-7" })
+                            <div class="col-md-7">
+                                @Html.DropDownListFor(x => Model.Tournament.TypeId, new SelectList(Model.TournamentTypes, "TypeId", "Name"), htmlAttributes: new { @class = "form-control", id = "Tournament Type"})
+                                @Html.ValidationMessageFor(x => x.Tournament.TypeId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <input name="types" type="hidden" value="@Model.TournamentTypes" />
+                        </br>
+           @*             <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-primary btn-sm" />
+                            <a class="btn text-light btn-danger btn-sm" asp-page="./Index" ><i ></i> Cancel</a>
+                        </div>*@
+                        </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" data-save="modal">Create</button>
+            </div>
+        </div>
+    </div>
+</div>

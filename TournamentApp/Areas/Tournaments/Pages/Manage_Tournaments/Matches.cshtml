@@ -1,0 +1,84 @@
+﻿@page
+@model TournamentApp.Areas.Tournaments.Pages.Manage_Tournaments.MatchesModel
+@{
+    Layout = "./_Layout.cshtml";
+    ViewData["Title"] = "Tournaments";
+}
+
+
+<h1>Matches</h1>
+@if(Model.TournamentStatus == TournamentStatus.ongoing)
+{
+  <p>
+    <a asp-page="CreateMatch" asp-route-trId=@Model.TournamentId class="btn btn-primary">Add Match</a>
+    <a asp-page="CreateSchedule" asp-route-trId=@Model.TournamentId class="btn btn-primary">Generate Schedule</a>
+    <a asp-page="CreateScheduleRR" asp-route-trId=@Model.TournamentId class="btn btn-primary">Generate Schedule Round Robin</a>
+</p>  
+}
+@if(Model.TournamentStatus != TournamentStatus.creation )
+{
+
+
+<h1>Matches List</h1>
+ <div class="col-md-4">
+    @if (Model.Matches != null)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model=>model.Matches[0].TeamA.TeamName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model=>model.Matches[0].TeamB.TeamName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model=>model.Matches[0].MatchDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model=>model.Matches[0].WinningTeam)
+                    </th>
+                    <th></th>
+                </tr>
+
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Matches)
+                {
+                    <tr>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.TeamA.TeamName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TeamB.TeamName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MatchDate)
+                    </td>
+                    <td>
+                                @if (item.WinningTeam == item.TeamAId)
+                                {
+                                    @Html.DisplayFor(modelItem => item.TeamA.TeamName)
+                                }
+                                @if (item.WinningTeam == item.TeamBId)
+                                {
+                                    @Html.DisplayFor(modelItem => item.TeamB.TeamName)
+                                }
+                    </td>
+                    <td>
+                        <a asp-page="./UpdateMatch/" asp-route-mcId=@item.GameId asp-route-trId =@Model.TournamentId class="btn btn-secondary p-1 m-1"><i class="bi bi-pencil-fill"></i>Update</a>
+                    </td>
+                    <td>
+                        <a asp-page="./RemoveMatch/" asp-route-mcId=@item.GameId asp-route-trId =@Model.TournamentId class="btn btn-secondary p-1 m-1"><i class="bi bi-x-square-fill"></i>Cancel</a>
+                    </td>
+                </tr>
+        }
+            </tbody>
+        </table>
+        }
+</div>
+}
+else
+{
+    <h1>Tournament hasn't started yet</h1>
+}

@@ -1,0 +1,63 @@
+﻿@page
+@model TournamentApp.Areas.Tournaments.Pages.Manage_Tournaments.IndexModel
+@{
+    Layout = "./_Layout.cshtml";
+}
+
+
+<div class="row m-3">
+    <h1>Manage Tournament</h1>
+
+    <h4>Tournament</h4>
+    <hr />
+    <div class="col-md-4">
+        <form method="post" asp-page-handler="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TournamentId" />
+            <div class="form-group">
+                <label asp-for="Tournament.TournamentName" class="control-label"></label>
+                <input asp-for="Tournament.TournamentName" class="form-control" />
+                <span asp-validation-for="Tournament.TournamentName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tournament.StartDate" class="control-label"></label>
+                <input asp-for="Tournament.StartDate" class="form-control" />
+                <span asp-validation-for="Tournament.StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tournament.EndDate" class="control-label"></label>
+                <input asp-for="Tournament.EndDate" class="form-control" />
+                <span asp-validation-for="Tournament.EndDate" name="userSearch" class="text-danger"></span>
+            </div>
+            @Html.DisplayNameFor(model=>model.Tournament.Status)
+            @switch (Model.Tournament.Status)
+            {
+                case TournamentStatus.creation :
+                <span class="text-warning">Creation</span>
+                    break;
+                case TournamentStatus.ongoing :
+                <span class="text-primary">Ongoing</span>
+                    break;
+                case TournamentStatus.finished :
+                <span class="text-danger">Finished</span>
+                    break;
+            }
+            <div class="form-group">
+                <input type="submit"  value="Save"asp-page-handler="Edit" asp-route-trId=@Model.TournamentId class="btn btn-primary mt-2" />
+            </div>
+        </form>
+        @if (@Model.Tournament.Status == TournamentStatus.creation)
+        {
+            <form method="post" asp-page-handler="Start">
+                <div class="form-group">
+                <input type="submit"  value="Start Tournament" asp-page-handler="Start" asp-route-trId=@Model.TournamentId class="btn btn-primary mt-2" />
+            </div>
+        </form>
+        }
+    </div>
+</div>
+
+
+
+
+

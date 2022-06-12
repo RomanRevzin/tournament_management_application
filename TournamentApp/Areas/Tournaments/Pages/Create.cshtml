@@ -1,0 +1,57 @@
+﻿@page
+@model TournamentCreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+ <div class="row m-3">
+    <h1>Create</h1>
+
+    <h4>Tournament</h4>
+    <hr />
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CreateRequest.TournamentName" class="control-label"></label>
+                <input asp-for="CreateRequest.TournamentName" class="form-control" />
+                <span asp-validation-for="CreateRequest.TournamentName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateRequest.StartDate" class="control-label"></label>
+                <input asp-for="CreateRequest.StartDate" class="form-control" />
+                <span asp-validation-for="CreateRequest.StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateRequest.EndDate" class="control-label "></label>
+                <input asp-for="CreateRequest.EndDate"  class="form-control" />
+                <span asp-validation-for="CreateRequest.EndDate" class="text-danger"></span>
+            </div>
+              <div class="form-group">
+                <label asp-for="CreateRequest.TeamSize" class="control-label"></label>
+                <input asp-for="CreateRequest.TeamSize"  class="form-control" />
+                <span asp-validation-for="CreateRequest.TeamSize" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => Model.CreateRequest.TypeId, htmlAttributes: new { @class = "control-label col-md-7" })
+                <div class="col-md-7">
+                    @Html.DropDownListFor(x => Model.CreateRequest.TypeId, new SelectList(Model.TournamentTypes, "TypeId", "Name"), htmlAttributes: new { @class = "form-control", id = "Tournament Type"})
+                    @*@Html.ValidationMessageFor(x => x.CreateRequest.TypeId, "", new { @class = "text-danger" })*@
+                </div>
+            </div>
+            </br>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary btn-sm" />
+                <a class="btn text-light btn-danger btn-sm" asp-page="./Index" ><i ></i> Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

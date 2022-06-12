@@ -1,0 +1,46 @@
+﻿@page
+@model TournamentApp.Areas.Tournaments.Pages.Manage_Tournaments.Manage_Teams.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Tournaments/Pages/Manage_Tournaments/_Layout.cshtml";
+    var id = @Request.Query["trId"];
+}
+
+<h1>Index</h1>
+@if (@Model.InCreation)
+{
+    <p>
+        <a asp-page="Create" asp-route-trId=@id class="btn btn-primary"><i class="bi bi-plus-square-fill"></i>&nbspAdd New Team</a>
+    </p>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Team[0].TeamName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Team[0].IsActive)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Team) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeamName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-trId=@id asp-route-tmId="@item.TeamId" class="btn btn-secondary"><i class="bi bi-pencil-fill"></i>&nbspEdit</a>
+                <a asp-page="./Details" asp-route-trId=@id asp-route-tmId="@item.TeamId" class="btn btn-secondary"><i class="bi bi-bar-chart-line-fill"></i>&nbspDetails</a> @if(@Model.InCreation){
+                <form method="post" class="d-inline"><input type="submit" value="Remove" asp-page-handler="Remove" asp-route-trId=@id asp-route-tmId="@item.TeamId" class="btn btn-danger"></Form>}
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

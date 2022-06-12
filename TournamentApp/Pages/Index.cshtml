@@ -1,0 +1,123 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome  @User.Identity.Name</h1>
+    <h3>Your future matches:</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FutureMatches[0].TeamA)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FutureMatches[0].TeamB)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FutureMatches[0].MatchDate)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model.FutureMatches) {
+                    <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TeamA.TeamName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TeamB.TeamName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MatchDate)
+                </td>
+                @*<td>
+                    <a asp-page="./Details" asp-route-trId="@item.TournamentId">Details</a>|
+                    <form method="post"><input type="submit" value="Quit" asp-page-handler="Quit" asp-route-trId="@item.TournamentId"></form>  
+                </td>*@
+            </tr> 
+    }
+        </tbody>
+    </table>
+    <h3>Your active tournaments:</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserTournaments[0].TournamentName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserTournaments[0].TournamentId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserTournaments[0].StartDate)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model.UserTournaments) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TournamentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TournamentId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                @*<td>
+                    <a asp-page="./Details" asp-route-trId="@item.TournamentId">Details</a>|
+                    <form method="post"><input type="submit" value="Quit" asp-page-handler="Quit" asp-route-trId="@item.TournamentId"></form>  
+                </td>*@
+            </tr>
+    }
+        </tbody>
+    </table>
+    <h3>Your past matches:</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.PastMatches[0].TeamA)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PastMatches[0].TeamB)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PastMatches[0].WinningTeam)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PastMatches[0].MatchDate)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model.PastMatches) {
+                    <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TeamA.TeamName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TeamB.TeamName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WinningTeam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MatchDate)
+                </td>
+                @*<td>
+                    <a asp-page="./Details" asp-route-trId="@item.TournamentId">Details</a>|
+                    <form method="post"><input type="submit" value="Quit" asp-page-handler="Quit" asp-route-trId="@item.TournamentId"></form>  
+                </td>*@
+            </tr> 
+    }
+        </tbody>
+    </table>
+</div>

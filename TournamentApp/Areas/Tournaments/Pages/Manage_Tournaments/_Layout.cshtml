@@ -1,0 +1,48 @@
+﻿@{
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+@{
+    var id = Context.Request.Query["trId"];
+}
+
+        
+
+     
+
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 m-0 bg-info">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <span class="fs-5 d-none d-sm-inline fw-bold">Manage Tournament</span>
+                </a>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item">
+                        <a asp-page="/Manage_Tournaments/Index" asp-route-trId="@id" class="nav-link align-middle px-0 fw-bold">
+                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Details</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-page="/Manage_Tournaments/Manage/Index" asp-route-trId="@id" class="nav-link px-0 align-middle fw-bold">
+                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Manage Teams</span></a>
+                    </li>
+                    <li>
+                        <a asp-page="/Manage_Tournaments/Matches" asp-route-trId="@id" class="nav-link px-0 align-middle fw-bold">
+                            <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Schedule matches</span> </a>
+                    </li>
+                    <li>
+                        <a asp-page="/Index" class="btn btn-outline-light">Back to List</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col py-3">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @RenderSection("Scripts",required:false);
+}

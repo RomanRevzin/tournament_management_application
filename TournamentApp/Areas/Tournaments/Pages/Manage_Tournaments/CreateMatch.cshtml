@@ -1,0 +1,39 @@
+﻿@page
+@model TournamentApp.Areas.Tournaments.Pages.Manage_Tournaments.CreateMatchModel
+@{
+    ViewData["Title"] = "CreateMatch";
+}
+
+<div class="row m-2">
+    <h1>Create</h1>
+
+    <h4>Match</h4>
+    <hr />
+    <div class="col-md-4">
+        <form method="post">
+              <input type="hidden" asp-for="TournamentId" />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CreateRequest.TeamAName" class="control-label"></label>
+                @Html.DropDownListFor(m => m.CreateRequest.TeamAName, 
+            new SelectList(Model.TeamNames),"Select TeamA Name", new {@class="btn btn-secondary btn-sm text-dark m-1"}) 
+                <span asp-validation-for="CreateRequest.TeamAName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateRequest.TeamBName" class="control-label"></label>
+                @Html.DropDownListFor(m => m.CreateRequest.TeamBName, 
+            new SelectList(Model.TeamNames),"Select TeamB Name", new {@class="btn btn-secondary btn-sm text-dark m-1"})
+                <span asp-validation-for="CreateRequest.TeamBName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateRequest.MatchDate" class="control-label "></label>
+                <input asp-for="CreateRequest.MatchDate"  class="form-control" />
+                <span asp-validation-for="CreateRequest.MatchDate" class="text-danger"></span>
+            </div>
+                <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary btn-sm" />
+                <a class="btn text-light btn-danger btn-sm" asp-page="./Matches/" asp-route-trId=@Model.TournamentId ><i ></i> Cancel</a>
+            </div>
+            </form>
+    </div>
+</div>
